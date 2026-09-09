@@ -15,7 +15,8 @@ const getWsBaseUrl = () => {
     return cleanUrl;
   }
   if (typeof window !== 'undefined' && window.location.hostname.includes('onrender.com')) {
-    return 'wss://gps-tracker-backend.onrender.com';
+    const backendHost = window.location.hostname.replace('frontend', 'backend');
+    return `wss://${backendHost}`;
   }
   return 'ws://localhost:8000';
 };

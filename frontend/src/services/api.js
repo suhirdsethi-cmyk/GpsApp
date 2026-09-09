@@ -9,9 +9,10 @@ const getApiBaseUrl = () => {
     }
     return cleanUrl;
   }
-  // Auto-detect Render deployment
+  // Auto-detect Render deployment host with matching suffix (e.g. frontend-axub -> backend-axub)
   if (typeof window !== 'undefined' && window.location.hostname.includes('onrender.com')) {
-    return 'https://gps-tracker-backend.onrender.com';
+    const backendHost = window.location.hostname.replace('frontend', 'backend');
+    return `https://${backendHost}`;
   }
   return 'http://localhost:8000';
 };
