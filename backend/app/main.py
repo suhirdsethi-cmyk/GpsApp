@@ -27,15 +27,11 @@ app = FastAPI(
     lifespan=lifespan
 )
 
-# Configure CORS
-origins = [origin.strip() for origin in settings.CORS_ORIGINS.split(",") if origin.strip()]
-if "*" not in origins:
-    origins.extend(["http://localhost:5173", "http://127.0.0.1:5173", "http://localhost:3000"])
-
+# Configure CORS for Web, PWA, and Mobile Clients
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Allow cross-origin requests for web/mobile clients
-    allow_credentials=True,
+    allow_origins=["*"],
+    allow_credentials=False,
     allow_methods=["*"],
     allow_headers=["*"],
 )
