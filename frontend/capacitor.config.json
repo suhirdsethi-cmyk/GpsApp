@@ -1,0 +1,8 @@
+{
+  "appId": "com.gpstracker.app",
+  "appName": "GPS Tracking",
+  "webDir": "dist",
+  "server": {
+    "androidScheme": "https"
+  }
+}
