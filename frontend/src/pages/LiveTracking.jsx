@@ -7,7 +7,22 @@ import MapContainer from '../components/MapContainer';
 import api from '../services/api';
 import { watchDevicePosition } from '../services/geolocation';
 
-const WS_BASE_URL = import.meta.env.VITE_WS_BASE_URL || 'ws://localhost:8000';
+const getWsBaseUrl = () => {
+  const envUrl = import.meta.env.VITE_WS_BASE_URL;
+  if (envUrl && envUrl.trim() !== '') {
+    let cleanUrl = envUrl.trim();
+    if (!cleanUrl.startsWith('ws://') && !cleanUrl.startsWith('wss://')) {
+      cleanUrl = `wss://${cleanUrl}`;
+    }
+    return cleanUrl;
+  }
+  if (typeof window !== 'undefined' && window.location.hostname.includes('onrender.com')) {
+    return 'wss://gps-tracker-backend.onrender.com';
+  }
+  return 'ws://localhost:8000';
+};
+
+const WS_BASE_URL = getWsBaseUrl();
 
 const LiveTracking = () => {
   const [searchParams] = useSearchParams();
