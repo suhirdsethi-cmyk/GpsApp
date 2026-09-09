@@ -34,7 +34,11 @@ const Register = () => {
       navigate('/dashboard');
     } catch (err) {
       setLoading(false);
-      setError(err.response?.data?.detail || "Registration failed. Email might already exist.");
+      if (!err.response) {
+        setError("Unable to connect to backend server. Please verify your connection or check backend API status.");
+      } else {
+        setError(err.response.data?.detail || "Registration failed. Email address may already be registered.");
+      }
     }
   };
 

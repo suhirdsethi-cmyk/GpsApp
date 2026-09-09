@@ -27,7 +27,11 @@ const Login = () => {
       navigate('/dashboard');
     } catch (err) {
       setLoading(false);
-      setError(err.response?.data?.detail || "Invalid email or password.");
+      if (!err.response) {
+        setError("Unable to connect to backend server. Please verify your connection or check backend API status.");
+      } else {
+        setError(err.response.data?.detail || "Invalid email or password.");
+      }
     }
   };
 
